@@ -16,7 +16,9 @@ namespace BabysitterKata
             DateTime minCheckIn = startTime.Date.AddMinutes(MIN_ALLOWED_START_TIME);
             DateTime maxCheckOut = startTime.Date.AddMinutes(MAX_ALLOWED_END_TIME);
 
-            if (startTime < minCheckIn || endTime > maxCheckOut)
+            if (startTime < minCheckIn || endTime > maxCheckOut
+                || startTime > endTime 
+                )
                 throw new ArgumentOutOfRangeException();
 
             return 0;

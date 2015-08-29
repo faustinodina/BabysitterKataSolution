@@ -32,5 +32,16 @@ namespace BabysitterKataTest
                 );
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Checked out earlier than check in", AllowDerivedTypes = true)]
+        public void DoNotAllowCheckOutEarlierThanCheckIn() 
+        {
+            BabysitterWageCalculator calculator = new BabysitterWageCalculator();
+            Decimal salary = salary = calculator.calculate(
+                new DateTime(2015, 1, 1, 18, 00, 00),
+                new DateTime(2015, 1, 1, 19, 00, 00),
+                new DateTime(2015, 1, 1, 17, 00, 00)
+                );
+        }
     }
 }
