@@ -57,5 +57,10 @@ namespace BabysitterKataTest
             Decimal salary = calculator.calculate(T_05_00_PM, T_07_00_PM, T_06_00_PM);
         }
 
+        [TestMethod]
+        public void BabysitterGetPaid24Per2HourFromStartToBedTime()
+        {
+            Assert.AreEqual(new Decimal(24), calculator.calculate(T_05_00_PM, T_07_00_PM, T_07_00_PM));
+        }
     }
 }
