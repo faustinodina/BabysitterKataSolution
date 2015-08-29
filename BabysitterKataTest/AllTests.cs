@@ -43,5 +43,17 @@ namespace BabysitterKataTest
                 new DateTime(2015, 1, 1, 17, 00, 00)
                 );
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Bed time before check in", AllowDerivedTypes = true)]
+        public void BedTimeIfAnyShouldBeAfterCheckIn()
+        {
+            BabysitterWageCalculator calculator = new BabysitterWageCalculator();
+            Decimal salary = salary = calculator.calculate(
+                new DateTime(2015, 1, 1, 18, 00, 00),
+                new DateTime(2015, 1, 1, 17, 00, 00),
+                new DateTime(2015, 1, 1, 19, 00, 00)
+                );
+        }
     }
 }
