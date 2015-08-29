@@ -18,7 +18,7 @@ namespace BabysitterKata
 
             if (startTime < minCheckIn || endTime > maxCheckOut
                 || startTime > endTime
-                || bedTime < startTime 
+                || bedTime < startTime || bedTime > endTime
                 )
                 throw new ArgumentOutOfRangeException();
 
