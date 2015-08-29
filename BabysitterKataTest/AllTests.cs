@@ -14,6 +14,11 @@ namespace BabysitterKataTest
         private readonly DateTime T_06_00_PM = new DateTime(2015, 1, 1, 18, 00, 00);
         private readonly DateTime T_06_01_PM = new DateTime(2015, 1, 1, 18, 00, 01);
         private readonly DateTime T_07_00_PM = new DateTime(2015, 1, 1, 19, 00, 00);
+        private readonly DateTime T_09_59_PM = new DateTime(2015, 1, 1, 21, 59, 59);
+        private readonly DateTime T_10_00_PM = new DateTime(2015, 1, 1, 22, 00, 00);
+        private readonly DateTime T_10_59_PM = new DateTime(2015, 1, 1, 22, 59, 59);
+        private readonly DateTime T_11_00_PM = new DateTime(2015, 1, 1, 23, 00, 00);
+        private readonly DateTime T_00_00_AM = new DateTime(2015, 1, 2, 00, 00, 00);
         private readonly DateTime T_04_00_AM = new DateTime(2015, 1, 2, 04, 00, 00);
         private readonly DateTime T_04_01_AM = new DateTime(2015, 1, 2, 04, 00, 01);
 
@@ -61,13 +66,19 @@ namespace BabysitterKataTest
         [TestMethod]
         public void BabysitterGetPaid24Per2HourFromStartToBedTime()
         {
-            Assert.AreEqual(new Decimal(24), calculator.calculate(T_05_00_PM, T_07_00_PM, T_07_00_PM));
+            Assert.AreEqual(new Decimal(24), calculator.calculate(T_10_00_PM, T_00_00_AM, T_00_00_AM));
         }
 
         [TestMethod]
         public void BabysitterGetPaid24Per1Hour1SecondFromStartToBedTime()
         {
-            Assert.AreEqual(new Decimal(24), calculator.calculate(T_05_00_PM, T_06_01_PM, T_07_00_PM));
+            Assert.AreEqual(new Decimal(24), calculator.calculate(T_10_59_PM, T_00_00_AM, T_00_00_AM));
+        }
+
+        [TestMethod]
+        public void BabysitterGetPaid8Per1HourFromBedTimeToMidnight()
+        {
+            Assert.AreEqual(new Decimal(8), calculator.calculate(T_11_00_PM, T_11_00_PM, T_00_00_AM));
         }
     }
 }
