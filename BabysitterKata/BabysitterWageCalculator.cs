@@ -30,6 +30,9 @@ namespace BabysitterKata
         public decimal calculate(DateTime startTime, DateTime bedTime, DateTime endTime)
         {
             Decimal salary = new Decimal(0);
+            double hours = 0;
+            double fullHours = 0;
+            double carry1HourFraction = 0;
 
             DateTime minCheckIn = startTime.Date.AddMinutes(MIN_ALLOWED_START_TIME);
             DateTime maxCheckOut = startTime.Date.AddMinutes(MAX_ALLOWED_END_TIME);
@@ -45,18 +48,34 @@ namespace BabysitterKata
             if (midnight < bedTime)
                 throw new NotSupportedException();
 
-            salary += (int)(Math.Ceiling(bedTime.Subtract(startTime).TotalHours)) * WAGE_START_TO_BED;
+            hours = bedTime.Subtract(startTime).TotalHours;
+            fullHours = Math.Floor(hours);
+            salary += (int)fullHours * WAGE_START_TO_BED;
+            carry1HourFraction = hours - fullHours;      // truncated minutes are to be added to the next segment
+
             if (endTime <= midnight)
             {
                 // trivial timeline: start, bed, end, midnight 
-                salary += (int)(Math.Ceiling(endTime.Subtract(bedTime).TotalHours)) * WAGE_AFTER_BED;
+                hours = endTime.Subtract(bedTime).TotalHours + carry1HourFraction;
+                fullHours = Math.Floor(hours);
+                salary += (int)fullHours * WAGE_AFTER_BED;
+                carry1HourFraction = hours - fullHours;      // truncated minutes are to be added to the next segment
+                
                 return salary;
             }
             else
             {
                 // trivial timeline: start, bed, midnight, end
-                salary += (int)(Math.Ceiling(midnight.Subtract(bedTime).TotalHours)) * WAGE_AFTER_BED;
-                salary += (int)(Math.Ceiling(endTime.Subtract(midnight).TotalHours)) * WAGE_AFTER_MIDNIGHT;
+                hours = midnight.Subtract(bedTime).TotalHours + carry1HourFraction;
+                fullHours = Math.Floor(hours);
+                salary += (int)fullHours * WAGE_AFTER_BED;
+                carry1HourFraction = hours - fullHours;      // truncated minutes are to be added to the next segment
+
+                hours = endTime.Subtract(midnight).TotalHours + carry1HourFraction;
+                fullHours = Math.Floor(hours);
+                salary += (int)fullHours * WAGE_AFTER_MIDNIGHT;
+                carry1HourFraction = hours - fullHours;      // truncated minutes are to be added to the next segment
+
                 return salary;
             }
         }
