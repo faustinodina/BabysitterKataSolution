@@ -25,7 +25,7 @@ namespace BabysitterKata
                 )
                 throw new ArgumentOutOfRangeException();
 
-            salary += bedTime.Subtract(startTime).Hours * WAGE_START_TO_BED;
+            salary += (int)(Math.Ceiling(bedTime.Subtract(startTime).TotalHours)) * WAGE_START_TO_BED;
 
             return salary;
         }

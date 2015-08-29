@@ -12,6 +12,7 @@ namespace BabysitterKataTest
         private readonly DateTime T_04_59_PM = new DateTime(2015, 1, 1, 16, 59, 59);
         private readonly DateTime T_05_00_PM = new DateTime(2015, 1, 1, 17, 00, 00);
         private readonly DateTime T_06_00_PM = new DateTime(2015, 1, 1, 18, 00, 00);
+        private readonly DateTime T_06_01_PM = new DateTime(2015, 1, 1, 18, 00, 01);
         private readonly DateTime T_07_00_PM = new DateTime(2015, 1, 1, 19, 00, 00);
         private readonly DateTime T_04_00_AM = new DateTime(2015, 1, 2, 04, 00, 00);
         private readonly DateTime T_04_01_AM = new DateTime(2015, 1, 2, 04, 00, 01);
@@ -61,6 +62,12 @@ namespace BabysitterKataTest
         public void BabysitterGetPaid24Per2HourFromStartToBedTime()
         {
             Assert.AreEqual(new Decimal(24), calculator.calculate(T_05_00_PM, T_07_00_PM, T_07_00_PM));
+        }
+
+        [TestMethod]
+        public void BabysitterGetPaid24Per1Hour1SecondFromStartToBedTime()
+        {
+            Assert.AreEqual(new Decimal(24), calculator.calculate(T_05_00_PM, T_06_01_PM, T_07_00_PM));
         }
     }
 }
