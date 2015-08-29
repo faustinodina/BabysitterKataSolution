@@ -71,9 +71,21 @@ namespace BabysitterKataTest
         }
 
         [TestMethod]
+        public void BabysitterGetPaid24Per2HourFromStartToBedTimeBeforeMidnight()
+        {
+            Assert.AreEqual(new Decimal(24), calculator.calculate(T_05_00_PM, T_07_00_PM, T_07_00_PM));
+        }
+
+        [TestMethod]
         public void BabysitterGetPaid24Per1Hour1SecondFromStartToBedTime()
         {
             Assert.AreEqual(new Decimal(24), calculator.calculate(T_10_59_PM, T_00_00_AM, T_00_00_AM));
+        }
+
+        [TestMethod]
+        public void BabysitterGetPaid24Per1Hour1SecondFromStartToBedTimeBeforeMidnight()
+        {
+            Assert.AreEqual(new Decimal(24), calculator.calculate(T_09_59_PM, T_11_00_PM, T_11_00_PM));
         }
 
         [TestMethod]
@@ -86,6 +98,13 @@ namespace BabysitterKataTest
         public void BabysitterGetPaid12Per1HourFromStartToBed8Per1HourToMidnight16Per1HourToEnd()
         {
             Assert.AreEqual(new Decimal(36), calculator.calculate(T_10_00_PM, T_11_00_PM, T_01_00_AM));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Bed time after midnight", AllowDerivedTypes = true)]
+        public void UndefinedBehaviorIfBedtimeAfterMidnight()
+        {
+            Assert.AreEqual(new Decimal(36), calculator.calculate(T_10_00_PM, T_01_00_AM, T_01_00_AM));
         }
     }
 }
