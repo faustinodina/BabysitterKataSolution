@@ -13,7 +13,24 @@ namespace BabysitterKataTest
         public void DoNotAllowBabysitterChecksInBeforeMinAllowedTime() 
         {
             BabysitterWageCalculator calculator = new BabysitterWageCalculator();
-            Decimal salary = salary = calculator.calculate(new DateTime(2015, 1, 1, 16, 59, 59));
+            Decimal salary = salary = calculator.calculate(
+                new DateTime(2015, 1, 1, 16, 59, 59),
+                new DateTime(2015, 1, 1, 19, 00, 00),
+                new DateTime(2015, 1, 1, 23, 00, 00)
+                );
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Checked out after 4am next day", AllowDerivedTypes = true)]
+        public void DoNotAllowBabysitterChecksOutAfterMaxAllowedTime()
+        {
+            BabysitterWageCalculator calculator = new BabysitterWageCalculator();
+            Decimal salary = salary = calculator.calculate(
+                new DateTime(2015, 1, 1, 17, 00, 00), 
+                new DateTime(2015, 1, 1, 19, 00, 00), 
+                new DateTime(2015, 1, 2, 4,  00, 01)
+                );
+        }
+
     }
 }
