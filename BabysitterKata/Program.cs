@@ -10,6 +10,9 @@ namespace BabysitterKata
     {
         static void Main(string[] args)
         {
+            BabysitterKataCli cliHelper = new BabysitterKataCli();
+            Console.WriteLine(cliHelper.execute(args));
+            Console.ReadLine();
         }
     }
 }

@@ -122,6 +122,5 @@ namespace BabysitterKataTest
              */
             Assert.AreEqual(new Decimal(44), calculator.calculate(T_10_30_PM, T_11_30_PM, T_01_30_AM));
         }
-
     }
 }
