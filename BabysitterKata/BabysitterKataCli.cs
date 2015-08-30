@@ -8,6 +8,8 @@ namespace BabysitterKata
 {
     public class BabysitterKataCli
     {
+        public const string MSG_BAD_TIMELINE = "Error: Bad order on date/time parameters.";
+
         public string execute(string[] args)
         {
             StringBuilder result = new StringBuilder();
@@ -31,6 +33,14 @@ namespace BabysitterKata
             {
                 salary = calculator.calculate(startTime, bedTime, endTime);
                 result.Append(string.Format("Your salary is {0}", salary));
+            }
+            catch (ArgumentOutOfRangeException )
+            {
+                result.AppendLine(MSG_BAD_TIMELINE).AppendLine(help());
+            }
+            catch (NotSupportedException e)
+            {
+                result.AppendLine(e.Message).AppendLine(help());
             }
             catch
             {

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace BabysitterKata
 {
+
     public class BabysitterWageCalculator
     {
+        public const string MSG_BEDTIME_AFTER_MIDNIGHT = "Error: Bedtime should precede midnight.";
+
         private const int MIN_ALLOWED_START_TIME = 17 * 60; // 5pm, in minutes since beginning of the day
         private const int MAX_ALLOWED_END_TIME = (24 + 4) * 60; // 4am next day, in minutes since beginning of the check in day
         private const int WAGE_START_TO_BED = 12;
@@ -46,7 +49,7 @@ namespace BabysitterKata
 
             // !special case bedTime after midnight not defined in specs
             if (midnight < bedTime)
-                throw new NotSupportedException();
+                throw new NotSupportedException(MSG_BEDTIME_AFTER_MIDNIGHT);
 
             hours = bedTime.Subtract(startTime).TotalHours;
             fullHours = Math.Floor(hours);

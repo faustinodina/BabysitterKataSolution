@@ -40,5 +40,23 @@ namespace BabysitterKataTest
             string[] args = { "8/29/2015 22:30", "8/30/2015 00:30", "8/30/2015 1:30" };
             Assert.AreEqual("Error", cliHelper.execute(args).Substring(0, 5));
         }
+
+        [TestMethod]
+        public void CliHelpsOnBedtimeAfterMidnightInternalExceptions()
+        {
+            BabysitterKataCli cliHelper = new BabysitterKataCli();
+            // bedtime after midnight
+            string[] args = { "8/29/2015 22:30", "8/30/2015 00:30", "8/30/2015 1:30" };
+            Assert.AreEqual(BabysitterWageCalculator.MSG_BEDTIME_AFTER_MIDNIGHT, cliHelper.execute(args).Substring(0, BabysitterWageCalculator.MSG_BEDTIME_AFTER_MIDNIGHT.Length));
+        }
+
+        [TestMethod]
+        public void CliHelpsOnBadTimelineException()
+        {
+            BabysitterKataCli cliHelper = new BabysitterKataCli();
+            // bedtime after midnight
+            string[] args = { "8/30/2015 1:30", "8/29/2015 22:30", "8/30/2015 00:30" };
+            Assert.AreEqual(BabysitterKataCli.MSG_BAD_TIMELINE, cliHelper.execute(args).Substring(0, BabysitterKataCli.MSG_BAD_TIMELINE.Length));
+        }
     }
 }
