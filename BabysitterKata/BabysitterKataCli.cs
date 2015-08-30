@@ -21,16 +21,32 @@ namespace BabysitterKata
                 )
             {
                 result.AppendLine("Bad arguments.")
-                    .AppendLine("Usage:")
-                    .AppendLine("    BabysitterKata <startDateTime> <bedDateTime> <endDateTime>")
-                    .AppendLine().AppendLine("Dates should be enclosed between double quotation marks. Example:")
-                    .AppendLine("BabysitterSalary \"8/29/2015 22:30\" \"8/29/2015 23:30\" \"8/30/2015 1:30\"");
+                    .AppendLine(help());
                 return result.ToString();
             }
 
+            Decimal salary = new Decimal(0);
             var calculator = new BabysitterWageCalculator();
-            var salary = calculator.calculate(startTime, bedTime, endTime);
-            result.Append(string.Format("Your salary is {0}", salary));
+            try
+            {
+                salary = calculator.calculate(startTime, bedTime, endTime);
+                result.Append(string.Format("Your salary is {0}", salary));
+            }
+            catch
+            {
+                result.AppendLine("Error.").AppendLine(help());
+            }
+
+            return result.ToString();
+        }
+
+        private string help()
+        {
+            StringBuilder result = new StringBuilder();
+            result.AppendLine("Usage:")
+                .AppendLine("    BabysitterKata <startDateTime> <bedDateTime> <endDateTime>")
+                .AppendLine().AppendLine("Dates should be enclosed between double quotation marks. Example:")
+                .AppendLine("BabysitterSalary \"8/29/2015 22:30\" \"8/29/2015 23:30\" \"8/30/2015 1:30\"");
             return result.ToString();
         }
     }

@@ -31,5 +31,14 @@ namespace BabysitterKataTest
             string[] args = { "8/29/2015 22:30", "8/29/2015 23:30", "qwerty" };
             Assert.AreEqual("Bad arguments", cliHelper.execute(args).Substring(0, 13));
         }
+
+        [TestMethod]
+        public void CliHandlesInternalExceptions()
+        {
+            BabysitterKataCli cliHelper = new BabysitterKataCli();
+            // bedtime after midnight
+            string[] args = { "8/29/2015 22:30", "8/30/2015 00:30", "8/30/2015 1:30" };
+            Assert.AreEqual("Error", cliHelper.execute(args).Substring(0, 5));
+        }
     }
 }
